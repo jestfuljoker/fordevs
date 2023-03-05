@@ -6,3 +6,10 @@ export function badRequest(error: Error): HttpResponse {
 		body: error,
 	};
 }
+
+export function serverError(error: Error): HttpResponse {
+	return {
+		statusCode: 500,
+		body: error,
+	};
+}
