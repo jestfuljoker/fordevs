@@ -1,5 +1,8 @@
 # SignUp
 
+![SignUp Diagram](./assets/signup-diagram.png)
+*SignUp Diagram*
+
 ### Success case ✅
 - [ ] Receives a POST type request on route/api/signUp;
 - [ ] Validate mandatory data: name, email, password and passwordConfirmation;
