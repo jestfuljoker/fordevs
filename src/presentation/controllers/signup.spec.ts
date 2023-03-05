@@ -1,6 +1,5 @@
-import type { EmailValidator } from 'presentation/protocols';
-
 import { InvalidParamError, MissingParamError, ServerError } from '../errors';
+import type { EmailValidator } from '../protocols';
 import { SignupController } from './signup';
 
 class EmailValidatorStub implements EmailValidator {
