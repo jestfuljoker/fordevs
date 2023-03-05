@@ -5,6 +5,8 @@
   "author": "Christofer Assis <chris.f.assis18@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "git-commit-msg-linter": "^4.8.3"
+    "@types/node": "^18.14.6",
+    "git-commit-msg-linter": "^4.8.3",
+    "typescript": "^4.9.5"
   }
 }
