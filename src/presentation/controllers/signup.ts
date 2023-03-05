@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError, ServerError } from '../errors';
+import { InvalidParamError, MissingParamError } from '../errors';
 import { badRequest, serverError } from '../helpers';
 import type {
 	Controller,
@@ -33,8 +33,8 @@ export class SignupController implements Controller {
 				body: new Error(),
 				statusCode: 400,
 			};
-		} catch (error) {
-			return serverError(new ServerError());
+		} catch {
+			return serverError();
 		}
 	}
 }
