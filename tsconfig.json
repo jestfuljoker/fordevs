@@ -1,22 +1,23 @@
 {
-  "compilerOptions": {
-    "outDir": "./dist",
-    "module": "CommonJS",
-    "target": "ES2022",
-    "esModuleInterop": true,
-    "allowJs": true,
-    "strict": true,
-    "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "strictPropertyInitialization": false,
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "include": [
-    "src"
-  ]
+	"compilerOptions": {
+		"outDir": "./dist",
+		"module": "CommonJS",
+		"target": "ES2022",
+		"esModuleInterop": true,
+		"allowJs": true,
+		"strict": true,
+		"rootDir": "src",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"strictPropertyInitialization": false,
+		"incremental": true
+	},
+	"exclude": [
+		"node_modules",
+		"dist"
+	],
+	"include": [
+		"src"
+	]
 }
