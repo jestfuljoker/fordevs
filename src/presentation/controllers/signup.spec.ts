@@ -1,6 +1,6 @@
 import type { EmailValidator } from 'presentation/protocols';
 
-import { InvalidParamError, MissingParamError } from '../errors';
+import { InvalidParamError, MissingParamError, ServerError } from '../errors';
 import { SignupController } from './signup';
 
 class EmailValidatorStub implements EmailValidator {
@@ -132,5 +132,30 @@ describe('SignUpController', () => {
 		sut.handle(httpRequest);
 
 		expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com');
+	});
+
+	it('should return 500 if EmailValidator throws an exception', () => {
+		class EmailValidatorStub implements EmailValidator {
+			isValid(_email: string): boolean {
+				throw new Error();
+			}
+		}
+
+		const emailValidatorStub = new EmailValidatorStub();
+		const sut = new SignupController(emailValidatorStub);
+
+		const httpRequest = {
+			body: {
+				name: 'any_name',
+				email: 'any_email@mail.com',
+				password: 'any_password',
+				passwordConfirmation: 'any_password',
+			},
+		};
+
+		const httpResponse = sut.handle(httpRequest);
+
+		expect(httpResponse.statusCode).toBe(500);
+		expect(httpResponse.body).toEqual(new ServerError());
 	});
 });
