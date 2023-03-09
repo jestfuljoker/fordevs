@@ -14,3 +14,10 @@ export function serverError(): HttpResponse {
 		body: new ServerError(),
 	};
 }
+
+export function success<T = unknown>(body: T): HttpResponse {
+	return {
+		statusCode: 200,
+		body,
+	};
+}
