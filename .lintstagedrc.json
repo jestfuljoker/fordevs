@@ -1,6 +1,6 @@
 {
 	"*.ts": [
 		"eslint --ext ts --fix",
-		"yarn test:staged"
+		"pnpm test:staged"
 	]
 }
