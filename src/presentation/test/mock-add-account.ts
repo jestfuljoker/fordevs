@@ -1,13 +1,14 @@
 import type { AccountModel } from '@domain/models';
 import type { AddAccount, AddAccountModel } from '@domain/useCases';
+import { faker } from '@faker-js/faker';
 
 export class AddAccountStub implements AddAccount {
-	async add(_account: AddAccountModel): Promise<AccountModel> {
+	async add(account: AddAccountModel): Promise<AccountModel> {
 		const fakeAccount = {
-			id: 'valid_id',
-			name: 'valid_name',
-			email: 'valid_email@mail.com',
-			password: 'valid_password',
+			id: faker.datatype.uuid(),
+			name: account.name,
+			email: account.email,
+			password: account.password,
 		};
 
 		return fakeAccount;

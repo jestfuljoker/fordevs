@@ -1,5 +1,7 @@
 import type { Encrypter } from '@data/protocols';
 import { EncrypterStub } from '@data/test';
+import type { AddAccountModel } from '@domain/useCases';
+import { faker } from '@faker-js/faker';
 
 import { DbAddAccount } from './db-add-account';
 
@@ -18,21 +20,24 @@ function makeSut(): SutTypes {
 	};
 }
 
+function makeAccountData(): AddAccountModel {
+	return {
+		name: faker.name.fullName(),
+		email: faker.internet.email(),
+		password: faker.internet.password(),
+	};
+}
+
 describe('DbAddAccount UseCase', () => {
 	it('should call Encrypter with correct password', async () => {
 		const { encrypterStub, sut } = makeSut();
-
 		const encryptSpy = jest.spyOn(encrypterStub, 'encrypt');
 
-		const accountData = {
-			name: 'valid_name',
-			email: 'valid_email',
-			password: 'valid_password',
-		};
+		const accountData = makeAccountData();
 
 		await sut.add(accountData);
 
-		expect(encryptSpy).toHaveBeenCalledWith('valid_password');
+		expect(encryptSpy).toHaveBeenCalledWith(accountData.password);
 	});
 
 	it('should throw an Exception if Encrypter throws an Exception', async () => {
@@ -42,11 +47,7 @@ describe('DbAddAccount UseCase', () => {
 			.spyOn(encrypterStub, 'encrypt')
 			.mockReturnValueOnce(Promise.reject(new Error()));
 
-		const accountData = {
-			name: 'valid_name',
-			email: 'valid_email',
-			password: 'valid_password',
-		};
+		const accountData = makeAccountData();
 
 		const promise = sut.add(accountData);
 
