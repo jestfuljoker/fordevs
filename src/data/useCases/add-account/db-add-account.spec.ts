@@ -1,8 +1,7 @@
-import type { Encrypter } from '@data/protocols';
 import { EncrypterStub } from '@data/test';
-import type { AddAccountModel } from '@domain/useCases';
 import { faker } from '@faker-js/faker';
 
+import type { Encrypter, AddAccountModel } from './add-db-account-protocols';
 import { DbAddAccount } from './db-add-account';
 
 type SutTypes = {
