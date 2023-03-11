@@ -1,3 +1,3 @@
-export interface HttpRequest<T> {
+export interface HttpRequest<T = unknown> {
 	body?: T;
 }

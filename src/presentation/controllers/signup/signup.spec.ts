@@ -2,13 +2,16 @@ import {
 	InvalidParamError,
 	MissingParamError,
 	ServerError,
-} from '../../errors';
+} from '@presentation/errors';
+import { AddAccountStub } from '@presentation/test';
+import { EmailValidatorStub } from '@presentation/test/mock-email-validator';
+
 import { SignupController } from './signup';
 import type {
-	EmailValidator,
 	AddAccount,
-	AddAccountModel,
-	AccountModel,
+	EmailValidator,
+	HttpRequest,
+	SignUpParams,
 } from './signup-protocols';
 
 type SutTypes = {
@@ -17,36 +20,9 @@ type SutTypes = {
 	addAccountStub: AddAccount;
 };
 
-function makeEmailValidator(): EmailValidator {
-	class EmailValidatorStub implements EmailValidator {
-		isValid(_email: string): boolean {
-			return true;
-		}
-	}
-
-	return new EmailValidatorStub();
-}
-
-function makeAddAccount(): AddAccount {
-	class AddAccountStub implements AddAccount {
-		async add(_account: AddAccountModel): Promise<AccountModel> {
-			const fakeAccount = {
-				id: 'valid_id',
-				name: 'valid_name',
-				email: 'valid_email@mail.com',
-				password: 'valid_password',
-			};
-
-			return Promise.resolve(fakeAccount);
-		}
-	}
-
-	return new AddAccountStub();
-}
-
 function makeSut(): SutTypes {
-	const emailValidatorStub = makeEmailValidator();
-	const addAccountStub = makeAddAccount();
+	const emailValidatorStub = new EmailValidatorStub();
+	const addAccountStub = new AddAccountStub();
 	const sut = new SignupController(emailValidatorStub, addAccountStub);
 
 	return {
@@ -66,7 +42,7 @@ describe('SignUpController', () => {
 				password: 'any_password',
 				passwordConfirmation: 'any_password',
 			},
-		};
+		} as HttpRequest<SignUpParams>;
 
 		const httpResponse = await sut.handle(httpRequest);
 
@@ -83,7 +59,7 @@ describe('SignUpController', () => {
 				password: 'any_password',
 				passwordConfirmation: 'any_password',
 			},
-		};
+		} as HttpRequest<SignUpParams>;
 
 		const httpResponse = await sut.handle(httpRequest);
 
@@ -100,7 +76,7 @@ describe('SignUpController', () => {
 				email: 'any_email@mail.com',
 				passwordConfirmation: 'any_password',
 			},
-		};
+		} as HttpRequest<SignUpParams>;
 
 		const httpResponse = await sut.handle(httpRequest);
 
@@ -117,7 +93,7 @@ describe('SignUpController', () => {
 				email: 'any_email@mail.com',
 				password: 'any_password',
 			},
-		};
+		} as HttpRequest<SignUpParams>;
 
 		const httpResponse = await sut.handle(httpRequest);
 
