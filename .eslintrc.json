@@ -27,7 +27,7 @@
 		"camelcase": "off",
 		"max-classes-per-file": "off",
 		"no-restricted-syntax": "off",
-		"import/no-unresolved": "error",
+		"import/no-unresolved": "off",
 		"class-methods-use-this": "off",
 		"@typescript-eslint/no-unused-vars": [
 			"error",

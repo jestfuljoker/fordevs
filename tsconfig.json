@@ -12,7 +12,22 @@
 		"noImplicitAny": true,
 		"skipLibCheck": true,
 		"strictPropertyInitialization": false,
-		"incremental": true
+		"incremental": true,
+		"baseUrl": "src",
+		"paths": {
+			"@domain/*": [
+				"domain/*"
+			],
+			"@data/*": [
+				"data/*"
+			],
+			"@presentation/*": [
+				"presentation/*"
+			],
+			"@utils/*": [
+				"utils/*"
+			]
+		}
 	},
 	"exclude": [
 		"node_modules",
