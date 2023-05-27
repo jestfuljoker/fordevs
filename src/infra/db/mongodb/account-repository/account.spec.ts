@@ -18,6 +18,10 @@ describe('Account MongoDB Repository', () => {
 		await MongoHelper.disconnect();
 	});
 
+	beforeEach(async () => {
+		await MongoHelper.getCollection('accounts').deleteMany({});
+	});
+
 	it('should return an account on success', async () => {
 		const sut = makeSut();
 
