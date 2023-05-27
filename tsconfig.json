@@ -18,6 +18,9 @@
 			"@domain/*": [
 				"domain/*"
 			],
+			"@main/*": [
+				"main/*"
+			],
 			"@data/*": [
 				"data/*"
 			],
