@@ -5,6 +5,7 @@ module.exports = {
 	transform: {
 		'^.+\\.ts?$': '@swc/jest',
 	},
+	preset: '@shelf/jest-mongodb',
 	moduleNameMapper: {
 		'@data/(.*)': '<rootDir>/src/data/$1',
 		'@domain/(.*)': '<rootDir>/src/domain/$1',
