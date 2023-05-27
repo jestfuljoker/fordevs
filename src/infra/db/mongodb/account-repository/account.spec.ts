@@ -3,6 +3,12 @@ import { faker } from '@faker-js/faker';
 import { MongoHelper } from '../helpers';
 import { AccountMongoRepository } from './account';
 
+function makeSut(): AccountMongoRepository {
+	const sut = new AccountMongoRepository();
+
+	return sut;
+}
+
 describe('Account MongoDB Repository', () => {
 	beforeAll(async () => {
 		await MongoHelper.connect(process.env.MONGO_URL as string);
@@ -13,7 +19,7 @@ describe('Account MongoDB Repository', () => {
 	});
 
 	it('should return an account on success', async () => {
-		const sut = new AccountMongoRepository();
+		const sut = makeSut();
 
 		const accountData = {
 			name: faker.name.fullName(),
