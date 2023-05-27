@@ -1,3 +1,4 @@
+import type { Collection, Document } from 'mongodb';
 import { MongoClient } from 'mongodb';
 
 export class MongoHelper {
@@ -11,5 +12,9 @@ export class MongoHelper {
 
 	static async disconnect(): Promise<void> {
 		await this.client.close();
+	}
+
+	static getCollection<T extends Document>(name: string): Collection<T> {
+		return this.client.db().collection(name);
 	}
 }
