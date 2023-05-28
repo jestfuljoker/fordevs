@@ -15,14 +15,17 @@
 		"incremental": true,
 		"baseUrl": "src",
 		"paths": {
+			"@data/*": [
+				"data/*"
+			],
 			"@domain/*": [
 				"domain/*"
 			],
+			"@infra/*": [
+				"infra/*"
+			],
 			"@main/*": [
 				"main/*"
-			],
-			"@data/*": [
-				"data/*"
 			],
 			"@presentation/*": [
 				"presentation/*"
