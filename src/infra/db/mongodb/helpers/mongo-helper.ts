@@ -7,19 +7,29 @@ interface SaveOptions<T = unknown> {
 }
 
 export class MongoHelper {
-	private static client: MongoClient;
+	private static client: MongoClient | null;
+
+	private static uri: string;
 
 	private constructor() {}
 
 	static async connect(uri: string): Promise<void> {
+		this.uri = uri;
 		this.client = await MongoClient.connect(uri);
 	}
 
 	static async disconnect(): Promise<void> {
 		await this.client.close();
+		this.client = null;
 	}
 
-	static getCollection<T extends Document>(name: string): Collection<T> {
+	static async getCollection<T extends Document>(
+		name: string,
+	): Promise<Collection<T>> {
+		if (!this.client) {
+			await this.connect(this.uri);
+		}
+
 		return this.client.db().collection(name);
 	}
 
@@ -27,7 +37,7 @@ export class MongoHelper {
 		collectionName,
 		data,
 	}: SaveOptions<T>): Promise<R> {
-		const accountCollection = MongoHelper.getCollection(collectionName);
+		const accountCollection = await MongoHelper.getCollection(collectionName);
 
 		await accountCollection.insertOne(data);
 

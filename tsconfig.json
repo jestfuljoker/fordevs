@@ -13,6 +13,7 @@
 		"skipLibCheck": true,
 		"strictPropertyInitialization": false,
 		"incremental": true,
+		"strictNullChecks": false,
 		"baseUrl": "src",
 		"paths": {
 			"@data/*": [
