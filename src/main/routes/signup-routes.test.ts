@@ -1,5 +1,6 @@
 import request from 'supertest';
 
+import { faker } from '@faker-js/faker';
 import { MongoHelper } from '@infra/db/mongodb/helpers';
 
 import { app } from '../config';
@@ -14,17 +15,19 @@ describe('Signup Routes', () => {
 	});
 
 	beforeEach(async () => {
-		await MongoHelper.getCollection('accounts').deleteMany({});
+		const accountsCollection = await MongoHelper.getCollection('accounts');
+		await accountsCollection.deleteMany({});
 	});
 
 	it('should return an account on success', async () => {
+		const password = faker.internet.password();
 		await request(app)
 			.post('/api/signup')
 			.send({
-				name: 'Christofer',
-				email: 'chris.f.assis18@gmail.com',
-				password: '123',
-				passwordConfirmation: '123',
+				name: faker.name.fullName(),
+				email: faker.internet.email(),
+				password,
+				passwordConfirmation: password,
 			})
 			.expect(200);
 	});
