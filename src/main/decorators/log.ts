@@ -1,3 +1,4 @@
+import type { LogErrorRepository } from '@data/protocols';
 import type {
 	Controller,
 	HttpRequest,
@@ -8,7 +9,10 @@ import { HttpStatusCode } from '@presentation/protocols';
 export class LogControllerDecorator<TRequest = unknown, TResponse = unknown>
 	implements Controller<TRequest, TResponse>
 {
-	constructor(private readonly controller: Controller<TRequest, TResponse>) {}
+	constructor(
+		private readonly controller: Controller<TRequest, TResponse>,
+		private readonly logErrorRepository: LogErrorRepository,
+	) {}
 
 	async handle(
 		httpRequest: HttpRequest<TRequest>,
@@ -16,7 +20,9 @@ export class LogControllerDecorator<TRequest = unknown, TResponse = unknown>
 		const httpResponse = await this.controller.handle(httpRequest);
 
 		if (httpResponse.statusCode === HttpStatusCode.serverError) {
-			// log
+			const { stack } = httpResponse.body as Error;
+
+			await this.logErrorRepository.log(stack);
 		}
 
 		return httpResponse;
