@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { ControllerStub } from '@main/test';
+import { HttpStatusCode } from '@presentation/protocols';
 
 import { LogControllerDecorator } from './log';
 
@@ -39,5 +40,29 @@ describe('Log Controller Decorator', () => {
 		await sut.handle(httpRequest);
 
 		expect(handleSpy).toHaveBeenCalledWith(httpRequest);
+	});
+
+	it('should return the same result of the controller', async () => {
+		const { sut } = makeSut();
+
+		const password = faker.internet.password();
+
+		const httpRequest = {
+			body: {
+				email: faker.internet.email(),
+				name: faker.name.fullName(),
+				password,
+				passwordConfirmation: password,
+			},
+		};
+
+		const httpResponse = await sut.handle(httpRequest);
+
+		expect(httpResponse).toEqual({
+			statusCode: HttpStatusCode.ok,
+			body: {
+				name: 'any_name',
+			},
+		});
 	});
 });
