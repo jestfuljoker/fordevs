@@ -54,8 +54,8 @@ export class SignupController
 			});
 
 			return success(account);
-		} catch {
-			return serverError();
+		} catch (error) {
+			return serverError(error as Error);
 		}
 	}
 }
