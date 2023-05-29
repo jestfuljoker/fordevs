@@ -1,32 +1,30 @@
 import { faker } from '@faker-js/faker';
-import type {
-	Controller,
-	HttpRequest,
-	HttpResponse,
-} from '@presentation/protocols';
-import { HttpStatusCode } from '@presentation/protocols';
+import { ControllerStub } from '@main/test';
 
 import { LogControllerDecorator } from './log';
 
-class ControllerStub implements Controller<unknown, unknown> {
-	async handle(
-		_httpRequest: HttpRequest<unknown>,
-	): Promise<HttpResponse<unknown>> {
-		const httpResponse: HttpResponse = {
-			statusCode: HttpStatusCode.ok,
-			body: {
-				name: faker.name.fullName(),
-			},
-		};
+interface SutTypes {
+	sut: LogControllerDecorator;
+	controllerStub: ControllerStub;
+}
 
-		return httpResponse;
-	}
+function makeSut(): SutTypes {
+	const controllerStub = new ControllerStub();
+
+	const sut = new LogControllerDecorator(controllerStub);
+
+	return {
+		sut,
+		controllerStub,
+	};
 }
 
 describe('Log Controller Decorator', () => {
 	it('should call controller handler', async () => {
-		const controllerStub = new ControllerStub();
+		const { sut, controllerStub } = makeSut();
+
 		const password = faker.internet.password();
+
 		const httpRequest = {
 			body: {
 				email: faker.internet.email(),
@@ -38,7 +36,6 @@ describe('Log Controller Decorator', () => {
 
 		const handleSpy = jest.spyOn(controllerStub, 'handle');
 
-		const sut = new LogControllerDecorator(controllerStub);
 		await sut.handle(httpRequest);
 
 		expect(handleSpy).toHaveBeenCalledWith(httpRequest);
