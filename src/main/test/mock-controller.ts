@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import type {
 	Controller,
 	HttpRequest,
@@ -13,7 +12,7 @@ export class ControllerStub implements Controller<unknown, unknown> {
 		const httpResponse: HttpResponse = {
 			statusCode: HttpStatusCode.ok,
 			body: {
-				name: faker.name.fullName(),
+				name: 'any_name',
 			},
 		};
 
