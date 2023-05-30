@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from '@faker-js/faker';
 import { ControllerStub, LogErrorRepositoryStub } from '@main/test';
 import { serverError } from '@presentation/helpers';
+import type { HttpResponse } from '@presentation/protocols';
 import { HttpStatusCode } from '@presentation/protocols';
 
 import { LogControllerDecorator } from './log';
@@ -28,7 +30,7 @@ function makeSut(): SutTypes {
 	};
 }
 
-function makeHttpRequest() {
+function makeFakeRequest() {
 	const password = faker.internet.password();
 
 	const httpRequest = {
@@ -43,11 +45,19 @@ function makeHttpRequest() {
 	return httpRequest;
 }
 
+function makeServerError(): HttpResponse<any> {
+	const error = new Error();
+	error.stack = 'any_stack';
+
+	const internalError = serverError(error);
+	return internalError;
+}
+
 describe('Log Controller Decorator', () => {
 	it('should call controller handler', async () => {
 		const { sut, controllerStub } = makeSut();
 
-		const httpRequest = makeHttpRequest();
+		const httpRequest = makeFakeRequest();
 
 		const handleSpy = jest.spyOn(controllerStub, 'handle');
 
@@ -59,7 +69,7 @@ describe('Log Controller Decorator', () => {
 	it('should return the same result of the controller', async () => {
 		const { sut } = makeSut();
 
-		const httpRequest = makeHttpRequest();
+		const httpRequest = makeFakeRequest();
 
 		const httpResponse = await sut.handle(httpRequest);
 
@@ -74,17 +84,13 @@ describe('Log Controller Decorator', () => {
 	it('should call LogErrorRepository with correct error if controller returns a server error', async () => {
 		const { sut, controllerStub, logErrorRepositoryStub } = makeSut();
 
-		const error = new Error();
+		const httpRequest = makeFakeRequest();
 
-		error.stack = 'any_stack';
-
-		const internalError = serverError(error);
-
-		const httpRequest = makeHttpRequest();
+		const error = makeServerError();
 
 		jest
 			.spyOn(controllerStub, 'handle')
-			.mockReturnValueOnce(Promise.resolve(internalError));
+			.mockReturnValueOnce(Promise.resolve(error));
 
 		const logSpy = jest.spyOn(logErrorRepositoryStub, 'log');
 
