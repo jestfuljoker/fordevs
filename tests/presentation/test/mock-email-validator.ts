@@ -1,4 +1,4 @@
-import type { EmailValidator } from '../protocols/email-validator';
+import type { EmailValidator } from '@presentation/protocols/email-validator';
 
 export class EmailValidatorStub implements EmailValidator {
 	isValid(_email: string): boolean {

@@ -1,10 +1,6 @@
 module.exports = {
-	roots: ['<rootDir>/src'],
-	collectCoverageFrom: [
-		'<rootDir>/src/**/*.ts',
-		'!**/*.d.ts',
-		'!<rootDir>/src/main/**',
-	],
+	roots: ['<rootDir>/tests'],
+	collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**'],
 	coverageDirectory: 'coverage',
 	transform: {
 		'^.+\\.ts?$': '@swc/jest',

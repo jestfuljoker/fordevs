@@ -1,8 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import { faker } from '@faker-js/faker';
-
-import { BcryptAdapter } from './bcrypt-adapter';
+import { BcryptAdapter } from '@infra/cryptography/bcrypt-adapter';
 
 const SALT = 12;
 

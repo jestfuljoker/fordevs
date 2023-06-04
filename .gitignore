@@ -3,3 +3,4 @@ dist
 coverage
 tsconfig.tsbuildinfo
 .env
+dist

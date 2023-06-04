@@ -2,8 +2,7 @@ import request from 'supertest';
 
 import { faker } from '@faker-js/faker';
 import { MongoHelper } from '@infra/db/mongodb/helpers';
-
-import { app } from '../config';
+import { app } from '@main/config';
 
 describe('Signup Routes', () => {
 	beforeAll(async () => {

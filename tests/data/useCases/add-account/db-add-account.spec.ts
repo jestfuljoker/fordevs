@@ -1,12 +1,11 @@
-import { EncrypterStub } from '@data/test';
-import { AddAccountRepositoryStub } from '@data/test/mock-add-account-repository';
-import { faker } from '@faker-js/faker';
-
 import type {
 	AddAccountModel,
 	AddAccountRepository,
-} from './add-db-account-protocols';
-import { DbAddAccount } from './db-add-account';
+} from '@data/useCases/add-account';
+import { DbAddAccount } from '@data/useCases/add-account';
+import { faker } from '@faker-js/faker';
+
+import { EncrypterStub, AddAccountRepositoryStub } from '../../test';
 
 type SutTypes = {
 	sut: DbAddAccount;

@@ -1,20 +1,19 @@
 import { faker } from '@faker-js/faker';
+import { SignupController } from '@presentation/controllers/signup';
+import type {
+	AddAccount,
+	EmailValidator,
+	HttpRequest,
+	SignUpParams,
+} from '@presentation/controllers/signup';
 import {
 	InvalidParamError,
 	MissingParamError,
 	ServerError,
 } from '@presentation/errors';
 import { badRequest, serverError, success } from '@presentation/helpers';
-import { AddAccountStub } from '@presentation/test';
-import { EmailValidatorStub } from '@presentation/test/mock-email-validator';
 
-import { SignupController } from './signup';
-import type {
-	AddAccount,
-	EmailValidator,
-	HttpRequest,
-	SignUpParams,
-} from './signup-protocols';
+import { AddAccountStub, EmailValidatorStub } from '../../test';
 
 type SutTypes = {
 	sut: SignupController;

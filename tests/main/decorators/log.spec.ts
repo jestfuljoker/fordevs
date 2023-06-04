@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from '@faker-js/faker';
-import { ControllerStub, LogErrorRepositoryStub } from '@main/test';
+import { LogControllerDecorator } from '@main/decorators/log';
 import { serverError } from '@presentation/helpers';
 import type { HttpResponse } from '@presentation/protocols';
 import { HttpStatusCode } from '@presentation/protocols';
 
-import { LogControllerDecorator } from './log';
+import { ControllerStub, LogErrorRepositoryStub } from '../test';
 
 interface SutTypes {
 	sut: LogControllerDecorator;

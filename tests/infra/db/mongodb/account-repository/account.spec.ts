@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
-
-import { MongoHelper } from '../helpers';
-import { AccountMongoRepository } from './account';
+import { AccountMongoRepository } from '@infra/db/mongodb/account-repository/account';
+import { MongoHelper } from '@infra/db/mongodb/helpers';
 
 function makeSut(): AccountMongoRepository {
 	const sut = new AccountMongoRepository();

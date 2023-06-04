@@ -4,3 +4,4 @@ coverage
 tsconfig.tsbuildinfo
 jest.config.js
 jest-mongodb-config.js
+tsup.config.ts
