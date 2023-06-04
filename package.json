@@ -4,6 +4,9 @@
 	"main": "index.js",
 	"author": "Christofer Assis <chris.f.assis18@gmail.com>",
 	"license": "MIT",
+	"engines": {
+		"node": ">=18"
+	},
 	"scripts": {
 		"prepare": "husky install",
 		"test": "jest --passWithNoTests --silent --noStackTrace",
