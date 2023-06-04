@@ -15,7 +15,9 @@
 		"test:integration": "pnpm test -- --watch --runInBand --testMatch='**/*.test.ts'",
 		"test:staged": "pnpm test -- --findRelatedTests",
 		"test:ci": "pnpm test -- --coverage",
-		"dev": "tsx watch src/main/server.ts"
+		"dev": "tsx watch src/main/server.ts",
+		"build": "tsup",
+		"start": "node dist/main/server.js"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "7.6.0",
@@ -45,7 +47,8 @@
 		"supertest": "6.3.3",
 		"ts-node": "10.9.1",
 		"tsx": "3.12.7",
-		"typescript": "4.9.5"
+		"typescript": "4.9.5",
+		"tsup": "6.7.0"
 	},
 	"dependencies": {
 		"bcrypt": "5.1.0",
